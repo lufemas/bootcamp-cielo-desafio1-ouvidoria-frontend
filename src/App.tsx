@@ -1,16 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
+import Button from '@mui/material/Button';
 import './App.css';
+import Router from './Router';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        
-      </header>
-      <p>test</p>
-      <Button variant="contained">Hello world</Button>;
-
+      <Router />
     </div>
   );
 }
