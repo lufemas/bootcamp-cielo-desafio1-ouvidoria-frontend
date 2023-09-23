@@ -30,7 +30,7 @@ class ApiService {
     try {
       const response = await axios.post(`${this.apiBaseUrl}/feedback`, {message, type: type.toUpperCase()});
       console.log('response:', response); // Handle the response data here
-      return response.data;
+      return response;
     } catch (error) {
       console.error('There was a problem with the Axios request:', error);
       return error;

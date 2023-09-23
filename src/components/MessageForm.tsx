@@ -10,6 +10,7 @@ import {
   Radio,
 } from '@mui/material';
 import { useServicesContext } from '../services/ServicesContext';
+import Spinner from './Spinner';
 
 
 const MessageForm: React.FC = () => {
@@ -18,6 +19,7 @@ const MessageForm: React.FC = () => {
 
   const [message, setMessage] = useState<string>('');
   const [selectedType, setSelectedType] = useState<string>('sugestao');
+  const [isSendingMessage, setIsSendingMessage] = useState<boolean>(false);
 
   const handleSuggestionChange = (
     e: ChangeEvent<HTMLInputElement>
@@ -31,12 +33,17 @@ const MessageForm: React.FC = () => {
     setSelectedType(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     // Handle form submission here (e.g., sending data to a server)
     console.log('Suggestion submitted:', message);
     console.log('Selected option:', selectedType);
-    apiService.sendMessage(message, selectedType);
+    setIsSendingMessage(true);
+    const response = await apiService.sendMessage(message, selectedType);
+    console.log('Selected response:', response);
+
+    alert('Mensagem enviada.')
+    setIsSendingMessage(false);
   };
 
   const handleHello = (): void => {
@@ -46,6 +53,8 @@ const MessageForm: React.FC = () => {
   const handleSize = (): void => {
     apiService.getQueueSizes();
   };
+
+  if(isSendingMessage) return <Spinner />;
 
   return (
     <Container maxWidth="sm">
