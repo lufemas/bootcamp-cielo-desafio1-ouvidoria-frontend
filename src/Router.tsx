@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import CustomerPage from './pages/CustomerPage';
 import AdministratorPage from './pages/AdministratorPage';
 import HomePage from './pages/HomePage';
+import SendMessage from './pages/SendMessage';
 
 const Router: React.FC = () => {
   return (
@@ -11,8 +12,9 @@ const Router: React.FC = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/customer" element={<CustomerPage />} />
-          <Route path="/administrator" element={<AdministratorPage />} />
+          <Route path="/send-message" element={<SendMessage />} />
+          <Route path="/list-messages" element={<CustomerPage />} />
+          <Route path="/consume-messages" element={<AdministratorPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
