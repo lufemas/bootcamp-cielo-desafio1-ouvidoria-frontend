@@ -3,6 +3,7 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import LoginService from './LoginService';
 import ApiService from './ApiService';
+import I18nService from './I18nService';
 
 // interface ServicesContextType {
 //   loginService: typeof LoginService;
@@ -27,6 +28,7 @@ export const ServicesProvider: React.FC<ServicesProviderProps> = ({ children }) 
   const services = {
     loginService: LoginService,
     apiService: ApiService,
+    i18nService: I18nService,
     // Adicione mais serviços aqui
   };
 

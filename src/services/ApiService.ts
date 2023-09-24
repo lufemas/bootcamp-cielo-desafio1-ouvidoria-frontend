@@ -60,6 +60,14 @@ class ApiService {
       return error;
     }
   }
+
+  static setBaseUrl = (url: string): string => {
+    return this.apiBaseUrl = url;
+  }
+
+  static getBaseUrl = (): string => {
+    return this.apiBaseUrl;
+  }
   // Other methods...
 }
 export default ApiService;

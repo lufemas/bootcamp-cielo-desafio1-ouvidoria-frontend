@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppBar, Box, Button, MenuItem, Select, SelectChangeEvent, Tab, Tabs, Toolbar, Typography } from '@mui/material';
 import { useServicesContext } from '../services/ServicesContext';
 import cieloAdaLogo from '../images/cieloada.svg';
 
 const TopNavigation: React.FC = () => {
-  const { loginService } = useServicesContext();
+  const { loginService, i18nService } = useServicesContext();
+  const translate = i18nService.translate;
+
   const [loggedUser, setLoggedUser] = useState(loginService.getLogin());
+  const navigate = useNavigate();
 
   const changeLogin = (event: SelectChangeEvent<HTMLInputElement>) => {
     setLoggedUser(loginService.loginAs(event.target.value));
+    navigate(`./${event.target.value}`);
+
   };
 
 
@@ -30,20 +35,26 @@ const TopNavigation: React.FC = () => {
           src={cieloAdaLogo}
           alt="Cielo Ada Logo"
         />
+        <Button color="inherit" className={loggedUser} component={Link} to="/">
+        {translate("homePage")}
+        </Button>
         {
-          loggedUser === "customer" ? 
+          loggedUser === "customer" && 
             (
-              <Button color="inherit" component={Link} to="./send-message">
-                Enviar Mensagem
+              <Button color="inherit" className={loggedUser} component={Link} to="./send-message">
+                {translate("menuSendMessage")}
               </Button>
-            ) :
+            ) 
+        }    
+        {
+          loggedUser === "administrator" &&
             (
               <>
-                <Button color="inherit" component={Link} to="./list-messages">
-                  Listar Mensagens
+                <Button color="inherit" className={loggedUser} component={Link} to="./list-messages">
+                  {translate("menuListMessages")}
                 </Button>
-                <Button color="inherit" component={Link} to="./consume-message">
-                  Consumir Mensagem
+                <Button color="inherit" className={loggedUser} component={Link} to="./consume-message">
+                  {translate("menuConsumeMessage")}
                 </Button>
               </>
             )
@@ -52,10 +63,11 @@ const TopNavigation: React.FC = () => {
         <Select
           value={loggedUser}
           onChange={changeLogin}
-          label="Selecione uma opção"
+          label={translate("selectOption")}
         >
-          <MenuItem value="customer">Customer</MenuItem>
-          <MenuItem value="administrator">Administrator</MenuItem>
+          <MenuItem value="none">{translate("loggedout")}</MenuItem>
+          <MenuItem value="customer">{translate("customer")}</MenuItem>
+          <MenuItem value="administrator">{translate("administrator")}</MenuItem>
         </Select>
       </Toolbar>
     </AppBar>

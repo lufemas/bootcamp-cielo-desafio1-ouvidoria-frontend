@@ -15,7 +15,8 @@ import Spinner from './Spinner';
 
 const MessageForm: React.FC = () => {
 
-  const {apiService} = useServicesContext();
+  const {apiService, i18nService} = useServicesContext();
+  const translate = i18nService.translate;
 
   const [message, setMessage] = useState<string>('');
   const [selectedType, setSelectedType] = useState<string>('sugestao');
@@ -36,22 +37,12 @@ const MessageForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     // Handle form submission here (e.g., sending data to a server)
-    console.log('Suggestion submitted:', message);
-    console.log('Selected option:', selectedType);
     setIsSendingMessage(true);
     const response = await apiService.sendMessage(message, selectedType);
-    console.log('Selected response:', response);
+    console.log('[MessageForm.tsx] response:', response);
 
-    alert('Mensagem enviada.')
+    alert(translate("messagesent"));
     setIsSendingMessage(false);
-  };
-
-  const handleHello = (): void => {
-    apiService.getHello();
-  };
-
-  const handleSize = (): void => {
-    apiService.getQueueSizes();
   };
 
   if(isSendingMessage) return <Spinner />;
@@ -59,7 +50,7 @@ const MessageForm: React.FC = () => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Suggestion Form
+      {translate("messageform")}
       </Typography>
       <form onSubmit={handleSubmit}>
           <Grid item xs={12}>
@@ -72,17 +63,17 @@ const MessageForm: React.FC = () => {
               <FormControlLabel
                 value="Suggestion"
                 control={<Radio />}
-                label="Sugestão"
+                label={translate("suggestion")}
               />
               <FormControlLabel
                 value="Criticism"
                 control={<Radio />}
-                label="Crítica"
+                label={translate("Criticism")}
               />
               <FormControlLabel
                 value="Praise"
                 control={<Radio />}
-                label="Elogio"
+                label={translate("Praise")}
               />
             </RadioGroup>
           </Grid>
@@ -92,7 +83,7 @@ const MessageForm: React.FC = () => {
               fullWidth
               multiline
               rows={4}
-              label="Mensagem"
+              label={translate("Message")}
               variant="outlined"
               value={message}
               onChange={handleSuggestionChange}
@@ -106,13 +97,11 @@ const MessageForm: React.FC = () => {
               color="primary"
               fullWidth
             >
-              Enviar
+              {translate("send")}
             </Button>
           </Grid>
         </Grid>
       </form>
-      <Button onClick={handleHello}>Hello</Button>
-      <Button onClick={handleSize}>Size</Button>
     </Container>
   );
 };
