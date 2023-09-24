@@ -1,28 +1,37 @@
 # Bootcamp Cielo Ouvidoria Frontend
 
-Nessa aplicação é possível enviar e consultar mensagens AWS SQS através do nosso servidor JAVA.
-A aplicação pode ser acessada em: 
+Nesta aplicação, é possível enviar e consultar mensagens (gerenciadas por AWS SQS) através do nosso servidor JAVA.
+A aplicação pode ser acessada em: https://lufemas.github.io/bootcamp-cielo-desafio1-ouvidoria-frontend/
+
+## Rodar a aplicação localmente
+Para rodar a aplicação localmente:
+- Clone este repositório.
+- Dentro da pasta raiz do repositório, rode o comando:
+  ```
+  npm run start
+  ```
+- A aplicação estará rodando na porta 3000.
 
 ## Arquitetura
-- /components: Pasta onde estão componentes para serem utilizados nas páginas/
-- /pages: Componentes que agem como páginas da aplicação, geralmente acessados atráves de uma rota.
+- /components: Pasta onde estão componentes a serem utilizados nas páginas.
+- /pages: Componentes que atuam como páginas da aplicação, geralmente acessadas através de uma rota.
 - /services: Contexto central e serviços.
-  - ServicesContext.tsx: Contexto central que carrega instancias unicas de todos os outros serviços:
-    - ApiService: Responsável pelas chamadas ao servidor.
-    - I18nService: Responsável pel tradução de tokens.
-    - LoginService: Gerencia autenticação.
+- ServicesContext.tsx: Contexto central que carrega instâncias únicas de todos os outros serviços:
+  - ApiService: Responsável pelas chamadas ao servidor.
+  - I18nService: Responsável pela tradução de tokens.
+  - LoginService: Gerencia autenticação.
 
-## Inicio
+## Início
 1. Navegação principal, as opções serão diferentes dependendo do usuário logado.
-2. Selecione o usuário para logar
+2. Selecione o usuário para fazer login.
 3. É possível alterar o endereço padrão do servidor.
 ![Alt text](ss1.jpg)
 
 ## Enviar Mensagem
-É possível enviar mensagem apenas quando logado como 'Cliente'
+É possível enviar mensagem apenas quando logado como 'Cliente'.
 
 ## Listar Filas e Tamanho
-é possível acessar as filas e seus tamanhos ao logar com usuário 'Administrador'
+É possível acessar as filas e seus tamanhos ao fazer login com usuário 'Administrador'.
 
 ## Scripts Disponíveis
 
@@ -50,5 +59,3 @@ A compilação é minificada e os nomes dos arquivos incluem os hashes.\
 Sua aplicação está pronta para ser implantada!
 
 Consulte a seção sobre [implantação](https://facebook.github.io/create-react-app/docs/deployment) para obter mais informações.
-
-# Utilização

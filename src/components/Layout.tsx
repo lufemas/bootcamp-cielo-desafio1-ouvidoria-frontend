@@ -1,5 +1,5 @@
-import React from 'react';
-import TopNavigation from './TopNavigation';
+import React from "react";
+import TopNavigation from "./TopNavigation";
 import "./Layout.css";
 
 interface LayoutProps {
