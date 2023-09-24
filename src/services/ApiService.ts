@@ -1,74 +1,107 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from "axios";
 
-// Make sure to replace this with your actual endpoint and data
-// const requestData = {
-//   key1: 'value1',
-//   key2: 'value2',
-// };
-
-// axios.post(apiUrl, requestData)
-//   .then((response) => {
-//     console.log(response.data); // Handle the response data here
-//   })
-//   .catch((error) => {
-//     console.error('There was a problem with the Axios request:', error);
-//   });
-
-  
+/**
+ * Classe que fornece métodos para interagir com a API.
+ */
 class ApiService {
-  private static apiBaseUrl = 'http://localhost:8080';
+  /**
+   * URL base da API (pode ser modificada).
+   * @private
+   * @static
+   * @type {string}
+   */
+  private static apiBaseUrl = "http://localhost:8080";
 
+  /**
+   * Opções padrão para as solicitações HTTP.
+   * @private
+   * @static
+   * @type {Object}
+   */
   private static defaultOptions = {
     headers: {
-      'Content-Type': 'application/json', // Set the content type to JSON
-      'Access-Control-Allow-Origin': 'http://localhost:3000', // Specify the allowed origin
+      "Content-Type": "application/json", // Define o tipo de conteúdo como JSON.
+      "Access-Control-Allow-Origin": "http://localhost:3000", // Especifica a origem permitida.
     },
   };
 
-  static sendMessage = async (message: string, type: string): Promise<any> => {
-    console.log('sendMessage:', message, type)
+  /**
+   * Envia uma mensagem para ser introduzida a fila SQS.
+   * @static
+   * @param {string} message - O conteúdo da mensagem.
+   * @param {string} type - O tipo de mensagem.
+   * @returns {Promise<AxiosResponse | any>} - A resposta da solicitação ou erro.
+   */
+  static async sendMessage(
+    message: string,
+    type: string
+  ): Promise<AxiosResponse | any> {
     try {
-      const response = await axios.post(`${this.apiBaseUrl}/feedback`, {message, type: type.toUpperCase()});
-      console.log('response:', response); // Handle the response data here
+      const response = await axios.post(`${this.apiBaseUrl}/feedback`, {
+        message,
+        type: type.toUpperCase(),
+      });
+      console.log("response:", response); // Lida com os dados da resposta aqui.
       return response;
     } catch (error) {
-      console.error('There was a problem with the Axios request:', error);
+      console.error("Houve um problema na solicitação Axios:", error);
       return error;
     }
   }
 
-  static getQueueSizes = async (): Promise<any> => {
-    console.log('getQueueSizes');
+  /**
+   * Obtém tamanhos das filas SQS.
+   * @static
+   * @returns {Promise<AxiosResponse | any>} - A resposta da solicitação ou erro.
+   */
+  static async getQueueSizes(): Promise<AxiosResponse | any> {
     try {
       const response = await axios.get(`${this.apiBaseUrl}/feedback/size`);
-      console.log('response:', response.data);
+      console.log("response:", response.data);
       return response.data;
     } catch (error) {
-      console.error('There was a problem with the Axios request:', error);
+      console.error("Houve um problema na solicitação Axios:", error);
       return error;
     }
   }
 
-  static getHello = async (): Promise<any> => {
-    console.log('getHello');
+  /**
+   * Endpoint de teste. Obtém uma saudação da API.
+   * @static
+   * @returns {Promise<AxiosResponse | any>} - A resposta da solicitação ou erro.
+   */
+  static async getHello(): Promise<AxiosResponse | any> {
     try {
-      const response = await axios.get(`${this.apiBaseUrl}/hello`, this.defaultOptions);
-      console.log('response:', response.data);
+      const response = await axios.get(
+        `${this.apiBaseUrl}/hello`,
+        this.defaultOptions
+      );
+      console.log("response:", response.data);
       return response;
     } catch (error) {
-      console.error('There was a problem with the Axios request:', error);
+      console.error("Houve um problema na solicitação Axios:", error);
       return error;
     }
   }
 
-  static setBaseUrl = (url: string): string => {
-    return this.apiBaseUrl = url;
+  /**
+   * Define a URL base da API.
+   * @static
+   * @param {string} url - A URL base da API.
+   * @returns {string} - A URL base da API atualizada.
+   */
+  static setBaseUrl(url: string): string {
+    return (this.apiBaseUrl = url);
   }
 
-  static getBaseUrl = (): string => {
+  /**
+   * Obtém a URL base da API.
+   * @static
+   * @returns {string} - A URL base da API.
+   */
+  static getBaseUrl(): string {
     return this.apiBaseUrl;
   }
-  // Other methods...
 }
-export default ApiService;
 
+export default ApiService;

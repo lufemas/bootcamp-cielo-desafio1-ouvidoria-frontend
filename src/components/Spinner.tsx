@@ -1,5 +1,5 @@
-import React from 'react';
-import './Spinner.css'; // You'll need to create this CSS file for styling
+import React from "react";
+import "./Spinner.css"; // You'll need to create this CSS file for styling
 
 interface SpinnerProps {
   size?: number; // Optional size prop (default is 50px)
