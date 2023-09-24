@@ -33,16 +33,16 @@ const TopNavigation: React.FC = () => {
         {
           loggedUser === "customer" ? 
             (
-              <Button color="inherit" component={Link} to="/send-message">
+              <Button color="inherit" component={Link} to="./send-message">
                 Enviar Mensagem
               </Button>
             ) :
             (
               <>
-                <Button color="inherit" component={Link} to="/list-messages">
+                <Button color="inherit" component={Link} to="./list-messages">
                   Listar Mensagens
                 </Button>
-                <Button color="inherit" component={Link} to="/consume-message">
+                <Button color="inherit" component={Link} to="./consume-message">
                   Consumir Mensagem
                 </Button>
               </>
